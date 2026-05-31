@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>情報2 第1回 定着確認クイズ(選択式)</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; margin: 0; padding: 20px; }
+        .container { max-width: 850px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 15px; margin-bottom: 30px; }
+        .section-title { background: #2c3e50; color: #fff; padding: 10px 15px; border-radius: 5px; margin-top: 40px; font-size: 1.15em; font-weight: bold; }
+        .q-box { margin-bottom: 25px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fcfdfd; }
+        .q-text { font-weight: bold; font-size: 1.05em; color: #2d3748; margin-bottom: 15px; }
+        .hint { font-size: 0.85em; color: #4a5568; background: #e2e8f0; padding: 4px 10px; border-radius: 4px; margin-bottom: 12px; display: inline-block; }
+        
+        /* 選択肢のスタイリング */
+        .options-list { list-style: none; padding-left: 0; margin: 0 0 15px 0; }
+        .options-list li { margin-bottom: 8px; }
+        .options-list label { display: block; padding: 10px 15px; background: #fff; border: 2px solid #cbd5e0; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .options-list label:hover { background: #edf2f7; border-color: #a0aec0; }
+        .options-list input[type="radio"] { margin-right: 10px; transform: scale(1.1); }
+        
+        /* ボタンと結果 */
+        .btn-area { text-align: center; margin: 40px 0; }
+        .btn-submit { background: #3498db; color: white; border: none; padding: 15px 50px; font-size: 1.2em; font-weight: bold; border-radius: 30px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-submit:hover { background: #2980b9; transform: translateY(-2px); }
+        .score-board { display: none; text-align: center; background: #e6fffa; border: 2px solid #319795; color: #234e52; padding: 20px; border-radius: 8px; font-size: 1.5em; font-weight: bold; margin-bottom: 30px; }
+        .result { margin-top: 10px; font-weight: bold; display: none; padding: 10px 15px; border-radius: 6px; }
+        .correct { background: #c6f6d5; color: #22543d; border-left: 6px solid #38a169; }
+        .incorrect { background: #fed7d7; color: #742a2a; border-left: 6px solid #e53e3e; }
+        .commentary { display: none; background: #fffaf0; border: 1px solid #feebc8; color: #744210; padding: 12px; border-radius: 6px; margin-top: 8px; font-size: 0.95em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>2026年度 情報2：第1回定着確認 クイズ集 (4択選択式)</h1>
+    <div id="scoreBoard" class="score-board"></div>
+
+    <form id="quizForm">
+        
+        <div class="section-title">【1】Excel 関数選択問題</div>
+        
+        <div class="q-box" data-ans="3">
+            <div class="q-text">(1) 範囲A1:E1の合計値と、数値「100」のうち、小さいほうの値をセルF1に得るための関数はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q1" value="1">① =SMALL(SUM(A1:E1), 100)</label></li>
+                <li><label><input type="radio" name="q1" value="2">② =MIN(A1:E1, 100)</label></li>
+                <li><label><input type="radio" name="q1" value="3">③ =MIN(SUM(A1:E1), 100)</label></li>
+                <li><label><input type="radio" name="q1" value="4">④ =LESS(SUM(A1:E1), 100)</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 二つの値を比較して小さい方を返すには <code>MIN</code> 関数を使います。合計値は <code>SUM(A1:E1)</code> で指定します。</div>
+        </div>
+
+        <div class="q-box" data-ans="1">
+            <div class="q-text">(2) 範囲A1:E1の中央値と、数値「50」のうち、大きいほうの値をセルF1に得るための関数はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q2" value="1">① =MAX(MEDIAN(A1:E1), 50)</label></li>
+                <li><label><input type="radio" name="q2" value="2">② =MAX(CENTER(A1:E1), 50)</label></li>
+                <li><label><input type="radio" name="q2" value="3">③ =LARGE(MEDIAN(A1:E1), 50)</label></li>
+                <li><label><input type="radio" name="q2" value="4">④ =HIGH(AVERAGE(A1:E1), 50)</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 大きい方を抽出するには <code>MAX</code> 関数、中央値には <code>MEDIAN</code> 関数を組み合わせます。</div>
+        </div>
+
+        <div class="q-box" data-ans="2">
+            <div class="q-text">(3) 範囲A1:E1の平均値が「60以上」のとき「合格」、それ未満のとき「不合格」とする正しい構文はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q3" value="1">① =IF(AVERAGE(A1:E1)&gt;60, "合格", "不合格")</label></li>
+                <li><label><input type="radio" name="q3" value="2">② =IF(AVERAGE(A1:E1)&gt;=60, "合格", "不合格")</label></li>
+                <li><label><input type="radio" name="q3" value="3">③ =IF(MEAN(A1:E1)&gt;=60, 合格, 不合格)</label></li>
+                <li><label><input type="radio" name="q3" value="4">④ =CHECK(AVERAGE(A1:E1)&gt;=60, "合格")</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 「60以上」は <code>&gt;=60</code> と表記します。文字列をダブルクォーテーション <code>" "</code> で囲うのが必須です。</div>
+        </div>
+
+        <div class="q-box" data-ans="4">
+            <div class="q-text">(4) 範囲A1:E1の平均値を計算し、小数第1位を切り上げた値（すなわち整数値）を得る関数はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q4" value="1">① =ROUND(AVERAGE(A1:E1), 0)</label></li>
+                <li><label><input type="radio" name="q4" value="2">② =ROUNDUP(AVERAGE(A1:E1), 1)</label></li>
+                <li><label><input type="radio" name="q4" value="3">③ =CEILING(AVERAGE(A1:E1))</label></li>
+                <li><label><input type="radio" name="q4" value="4">④ =ROUNDUP(AVERAGE(A1:E1), 0)</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 小数第1位を切り上げて整数値にする場合は、<code>ROUNDUP</code> の第2引数（桁数）に <code>0</code> を指定します。</div>
+        </div>
+
+        <div class="q-box" data-ans="1">
+            <div class="q-text">(5) 25％の確率で「SR」、75%の確率で「R」の文字を得たい。適しているものはどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q5" value="1">① =IF(RAND()&lt;=0.25, "SR", "R")</label></li>
+                <li><label><input type="radio" name="q5" value="2">② =IF(RANDBETWEEN(1,100)&lt;=25, R, SR)</label></li>
+                <li><label><input type="radio" name="q5" value="3">③ =RAND(0.25, "SR", "R")</label></li>
+                <li><label><input type="radio" name="q5" value="4">④ =IF(RAND()&gt;=0.25, "SR", "R")</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 0以上1未満の乱数を作る <code>RAND()</code> が 0.25 以下になる確率がちょうど 25% になります。</div>
+        </div>
+
+        <div class="q-box" data-ans="3">
+            <div class="q-text">(6) 範囲A1:E1のなかで、値が「60未満」の「セルの個数」を得たい。</div>
+            <span class="hint">ヒント：COUNTIF関数</span><br>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q6" value="1">① =COUNTIF(A1:E1, &lt;60)</label></li>
+                <li><label><input type="radio" name="q6" value="2">② =COUNT(A1:E1, "&lt;60")</label></li>
+                <li><label><input type="radio" name="q6" value="3">③ =COUNTIF(A1:E1, "&lt;60")</label></li>
+                <li><label><input type="radio" name="q6" value="4">④ =COUNTIFS(A1:E1, "&lt;60")</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: <code>COUNTIF(範囲, 条件)</code> を使い、条件の <code>"&lt;60"</code> はダブルクォーテーションで囲みます。</div>
+        </div>
+
+        <div class="q-box" data-ans="2">
+            <div class="q-text">(7) 範囲A1:E1のなかで、値が「60以上70未満」の「セルの個数」を得たい。</div>
+            <span class="hint">ヒント：COUNTIFS関数</span><br>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q7" value="1">① =COUNTIF(A1:E1, "&gt;=60", A1:E1, "&lt;70")</label></li>
+                <li><label><input type="radio" name="q7" value="2">② =COUNTIFS(A1:E1, "&gt;=60", A1:E1, "&lt;70")</label></li>
+                <li><label><input type="radio" name="q7" value="3">③ =COUNTIFS(A1:E1, "60&lt;=x&lt;70")</label></li>
+                <li><label><input type="radio" name="q7" value="4">④ =SUMPRODUCT(A1:E1, "&gt;=60", "&lt;70")</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 複数条件を指定できる <code>COUNTIFS</code> を使い、同じ範囲に対して2つの条件を並べます。</div>
+        </div>
+
+        <div class="section-title">【2】統計学・IT知識問題</div>
+
+        <div class="q-box" data-ans="3">
+            <div class="q-text">(8) Excelにおける指数表示「3.14E+02」を、通常の数値表示にしたときの値はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q8" value="1">① 3.14</label></li>
+                <li><label><input type="radio" name="q8" value="2">② 31.4</label></li>
+                <li><label><input type="radio" name="q8" value="3">③ 314</label></li>
+                <li><label><input type="radio" name="q8" value="4">④ 31400</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: <code>E+02</code> は「10の2乗(100)を掛ける」という意味なので、3.14 × 100 = <code>314</code> です。</div>
+        </div>
+
+        <div class="q-box" data-ans="1">
+            <div class="q-text">(9) Excelにおいて、不偏分散（標本から母集団の分散を推定するもの）を計算するための関数はどちらか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q9" value="1">① VAR.S 関数</label></li>
+                <li><label><input type="radio" name="q9" value="2">② VAR.P 関数</label></li>
+                <li><label><input type="radio" name="q9" value="3">③ VAR.A 関数</label></li>
+                <li><label><input type="radio" name="q9" value="4">④ VARIANCE 関数</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 標本(Sample)から推測する不偏分散には <code>VAR.S</code>、データ全体(Population)の分散には <code>VAR.P</code> を使います。</div>
+        </div>
+
+        <div class="q-box" data-ans="2">
+            <div class="q-text">(10) 計測した10回のデータの平均値が 50.3 であった。このとき、あるデータの値が 51.2 であった場合の「偏差」はいくらか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q10" value="1">① -0.9</label></li>
+                <li><label><input type="radio" name="q10" value="2">② 0.9</label></li>
+                <li><label><input type="radio" name="q10" value="3">③ 1.1</label></li>
+                <li><label><input type="radio" name="q10" value="4">④ 51.2</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 偏差 ＝ データの値 － 平均値 で求められます。 51.2 - 50.3 = <code>0.9</code> です。</div>
+        </div>
+
+        <div class="q-box" data-ans="1">
+            <div class="q-text">(11) 分散を V 、標準偏差を s とするとき、両者の正しい関係式はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q11" value="1">① V = s²</label></li>
+                <li><label><input type="radio" name="q11" value="2">② s = V²</label></li>
+                <li><label><input type="radio" name="q11" value="3">③ V = √s</label></li>
+                <li><label><input type="radio" name="q11" value="4">④ V × s = 1</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 標準偏差は分散の正の平方根（ルート）なので、逆に「標準偏差を2乗したものが分散（$V = s^2$）」になります。</div>
+        </div>
+
+        <div class="q-box" data-ans="4">
+            <div class="q-text">(12) 統計学において「標本」と同義の言葉（カタカナ4文字）はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q12" value="1">① ターゲット</label></li>
+                <li><label><input type="radio" name="q12" value="2">② データ</label></li>
+                <li><label><input type="radio" name="q12" value="3">③ グループ</label></li>
+                <li><label><input type="radio" name="q12" value="4">④ サンプル</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 標本を英語のカタカナ表記にすると <code>サンプル</code> になります。</div>
+        </div>
+
+        <div class="q-box" data-ans="3">
+            <div class="q-text">(13) 「統計学では（ ）から抽出した部分集合を標本という」 括弧にあてはまる漢字3文字はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q13" value="1">① 全集団</label></li>
+                <li><label><input type="radio" name="q13" value="2">② 親集団</label></li>
+                <li><label><input type="radio" name="q13" value="3">③ 母集団</label></li>
+                <li><label><input type="radio" name="q13" value="4">④ 総母数</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 調査したい対象データ全体の集まりを <code>母集団</code> といいます。</div>
+        </div>
+
+        <div class="q-box" data-ans="2">
+            <div class="q-text">(14) ITパスポート試験などで採用されている実施形式「CBT」の正しい正式名称はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q14" value="1">① Core Based Testing</label></li>
+                <li><label><input type="radio" name="q14" value="2">② Computer Based Testing</label></li>
+                <li><label><input type="radio" name="q14" value="3">③ Computer Basic Test</label></li>
+                <li><label><input type="radio" name="q14" value="4">④ Cyber Based Testing</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: <code>Computer Based Testing</code>（コンピュータを利用した試験方式）の略です。</div>
+        </div>
+
+        <div class="section-title">【3】Excel 定番ショートカットキー</div>
+
+        <div class="q-box" data-ans="1">
+            <div class="q-text">(15)-① ブックの「保存」を実行するショートカットキーはどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q15_1" value="1">① Ctrl + S</label></li>
+                <li><label><input type="radio" name="q15_1" value="2">② Ctrl + H</label></li>
+                <li><label><input type="radio" name="q15_1" value="3">③ Ctrl + P</label></li>
+                <li><label><input type="radio" name="q15_1" value="4">④ Alt + S</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: Save（保存）の <code>Ctrl + S</code> です。</div>
+        </div>
+
+        <div class="q-box" data-ans="3">
+            <div class="q-text">(15)-② 「1つ上のセルの値をコピーして現在セルにペースト」するショートカットキーはどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q15_2" value="1">① Ctrl + C</label></li>
+                <li><label><input type="radio" name="q15_2" value="2">② Ctrl + U</label></li>
+                <li><label><input type="radio" name="q15_2" value="3">③ Ctrl + D</label></li>
+                <li><label><input type="radio" name="q15_2" value="4">④ Ctrl + R</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: Down（下方向へコピー）の意味を持つ <code>Ctrl + D</code> です。</div>
+        </div>
+
+        <div class="q-box" data-ans="2">
+            <div class="q-text">(15)-③ 「セルの書式設定」ダイアログボックスを開くショートカットキーはどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q15_3" value="1">① Ctrl + F</label></li>
+                <li><label><input type="radio" name="q15_3" value="2">② Ctrl + 1</label></li>
+                <li><label><input type="radio" name="q15_3" value="3">③ Alt + 1</label></li>
+                <li><label><input type="radio" name="q15_3" value="4">④ Ctrl + Shift + F</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 最も頻繁に使う <code>Ctrl + 1</code> です。テンキーの1ではなく、キーボード上部の1キーを押します。</div>
+        </div>
+
+        <div class="q-box" data-ans="4">
+            <div class="q-text">(15)-④ 入力中の「セル内での文字列改行」を行うキー操作はどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q15_4" value="1">① Shift + Enter</label></li>
+                <li><label><input type="radio" name="q15_4" value="2">② Ctrl + Enter</label></li>
+                <li><label><input type="radio" name="q15_4" value="3">③ Command + Enter</label></li>
+                <li><label><input type="radio" name="q15_4" value="4">④ Alt + Enter</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: Excel特有の操作で、<code>Alt + Enter</code> を押すとセル内で改行ができます。</div>
+        </div>
+
+        <div class="q-box" data-ans="1">
+            <div class="q-text">(15)-⑤ 「直前操作の繰り返し」を実行するキーはどれか。</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q15_5" value="1">① F4 キー (または Ctrl + Y)</label></li>
+                <li><label><input type="radio" name="q15_5" value="2">② F2 キー</label></li>
+                <li><label><input type="radio" name="q15_5" value="3">③ Ctrl + Z</label></li>
+                <li><label><input type="radio" name="q15_5" value="4">④ Alt + F4</label></li>
+            </ul>
+            <div class="result"></div><div class="commentary">解説: 直前の罫線や色塗りを繰り返すには <code>F4</code> または <code>Ctrl + Y</code> を使います。</div>
+        </div>
+
+        <div class="btn-area">
+            <button type="button" class="btn-submit" onclick="gradeQuiz()">クイズを採点する</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function gradeQuiz() {
+    let score = 0;
+    const questions = document.querySelectorAll('.q-box');
+    
+    questions.forEach(box => {
+        let resultDiv = box.querySelector('.result');
+        let comDiv = box.querySelector('.commentary');
+        let correctVal = box.getAttribute('data-ans');
+        
+        // チェックされたラジオボタンを取得
+        let selected = box.querySelector('input[type="radio"]:checked');
+        
+        if (selected && selected.value === correctVal) {
+            score++;
+            resultDiv.className = "result correct";
+            resultDiv.innerText = "〇 正解！";
+        } else {
+            resultDiv.className = "result incorrect";
+            resultDiv.innerText = "× 不正解";
+        }
+        resultDiv.style.display = "block";
+        comDiv.style.display = "block";
+    });
+
+    // 総合スコア表示
+    let board = document.getElementById('scoreBoard');
+    board.innerText = `採点完了： ${score} / ${questions.length} 問正解！ (正解率: ${Math.round(score/questions.length*100)}%)`;
+    board.style.display = "block";
+
+    // トップにスクロール
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>
